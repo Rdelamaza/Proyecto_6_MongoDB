@@ -9,7 +9,7 @@ export const getAllUsuarios = async (req, res, next) => {
             throw new NotFoundError (
                 'No se encontraron usuarios',
                 'No se encontraron usuarios en la base de datos'
-                );
+            );
 
         };
         res.status(200).json({
@@ -23,3 +23,4 @@ export const getAllUsuarios = async (req, res, next) => {
     };
 
 };
+
