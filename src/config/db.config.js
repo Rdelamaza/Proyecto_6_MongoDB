@@ -1,4 +1,4 @@
-//ODM
+//ODM (Object Data Modeling)
 
 import mongoose from 'mongoose';
 import { envs } from './envs.config.js';

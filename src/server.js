@@ -3,6 +3,9 @@ import express from 'express';
 import { envs } from './config/envs.config.js';
 import { dbConnect } from './config/db.config.js';
 
+import productosRouter from './routers/productos.routes.js';
+import usuariosRouter from './routers/usuarios.routes.js';
+
 
 const app = express();
 
@@ -16,6 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware de rutas
+app.use ('/api/v1',productosRouter );
+app.use ('/api/v1',usuariosRouter );
 
 //Middleware de errores
 
