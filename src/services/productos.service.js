@@ -1,4 +1,4 @@
-import { NotFoundError, ProdcutosError } from '../errors/TypeError.js';
+import { NotFoundError, ProductosError } from '../errors/TypeError.js';
 import { Productos } from '../models/Productos.model.js';
 
 
@@ -15,7 +15,7 @@ export const getAllProductosService = async () => {
         }
         return productos;
     } catch (error) {
-        throw new ProdcutosError('Error al intentar obtener los productos', error);
+        throw new ProductosError('Error al intentar obtener los productos', error);
     
         
     };
@@ -34,7 +34,21 @@ export const getProductoByIdService = async (id) => {
         }
         return producto;
     } catch (error) {
-        throw new ProdcutosError('Error al intentar obtener un producto por ID', error);
+        throw new ProductosError('Error al intentar obtener un producto por ID', error);
 
+    }
+};
+
+export const createProductosService = async (dataProducto) => {
+    try {
+        //validar datos
+
+        const producto = await Productos.create(dataProducto);
+
+        return producto;
+        
+    } catch (error) {
+        throw new ProductosError('Error al intentar crear un producto', 500, error);
+        
     }
 };

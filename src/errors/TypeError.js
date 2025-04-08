@@ -25,7 +25,7 @@ export class InternalServerError extends CustomError {
     }
 }
 
-export class ProdcutosError extends CustomError {
+export class ProductosError extends CustomError {
     constructor(message, details) {
         super(message || 'Error en el producto', 400, details);
     };

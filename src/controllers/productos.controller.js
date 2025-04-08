@@ -1,4 +1,4 @@
-import { getProductoByIdService, getAllProductosService } from '../services/productos.service.js';
+import { getProductoByIdService, getAllProductosService,createProductosService } from '../services/productos.service.js';
 
 
 // GET ALL PRODUCTOS, CONTROLADOR PARA OBTENER TODOS LOS PRODUCTOS
@@ -35,3 +35,21 @@ export const getProductoById = async (req, res, next) => {
         
     };
 };
+
+
+export const createProducto = async (req, res, next) => {
+    try {
+        const dataProducto = req.body;
+        const productos = await createProductosService(dataProducto);
+
+        res.status(201).json({
+            message: `Producto creado correctamente`,
+            statusCode:201,
+            data: productos,
+        });
+        
+    } catch (error) {
+        next(error);
+    }
+        
+    }
