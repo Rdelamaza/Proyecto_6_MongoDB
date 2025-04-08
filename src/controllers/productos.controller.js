@@ -1,8 +1,17 @@
+import { NotFoundError } from '../errors/TypeError.js';
 import { Productos } from '../models/Productos.model.js';
 
-export const getAllProductos = async (req, res) => {
+export const getAllProductos = async (req, res, next) => {
     try {
         const productos = await Productos.find();
+
+        if(productos.length === 0 || productos === null){
+            throw new NotFoundError(
+                'No se encontraron productos',
+                'No se encontraron productos en la base de datos'
+                );
+
+        }
 
         res.status(200).json({
             message: ' Productos obtenidos correctamente',
@@ -11,11 +20,7 @@ export const getAllProductos = async (req, res) => {
         });
         
     } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            message: 'Error al obtener los productos',
-            statusCode:500,
-        });
-        
-    }
-}
+        next(error);
+    };
+
+};

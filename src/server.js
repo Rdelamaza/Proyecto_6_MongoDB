@@ -5,6 +5,7 @@ import { dbConnect } from './config/db.config.js';
 
 import productosRouter from './routers/productos.routes.js';
 import usuariosRouter from './routers/usuarios.routes.js';
+import { errorHandler } from './middlewares/errorhandler.js';
 
 
 const app = express();
@@ -23,6 +24,9 @@ app.use ('/api/v1',productosRouter );
 app.use ('/api/v1',usuariosRouter );
 
 //Middleware de errores
+
+app.use(errorHandler);
+
 
 app.listen(envs.port, () => {;
     console.log(`Servidor corriendo en el puerto ${envs.port}`);
