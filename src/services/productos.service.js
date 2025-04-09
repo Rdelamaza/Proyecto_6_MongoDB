@@ -49,15 +49,39 @@ export const createProductosService = async (dataProducto) => {
 export const updateProductoByIdService = async (id,dataProducto) => {
     try {
         //Validar datos
-        const producto = await Productos.findOneAndUpdate({_id: id}, dataProducto);
+        const productoAntiguo = await Productos.findOneAndUpdate({_id: id}, dataProducto);
 
-        notFoundData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
+        const productoActualizado = await Productos.findById(id);
+
+        notFoundData(productoAntiguo, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
 
 
-        return producto;
+        return [productoAntiguo, productoActualizado];
         
     } catch (error) {
         throw new ProductosError(`Error al intentar actualizar el producto con el id: ${id}`,500, error);
         
     };
+};
+
+//HARD DELETE
+
+
+
+
+//Soft Delete o Delete logico
+
+export const softDeleteProductoByIdService = async (id) => {
+    try {
+        const producto = await Productos.findByIdAndUpdate(id, {isActive: false});
+
+        notFoundData(producto,
+            'No se encontró el producto',
+            `No se encontró el producto con el id: ${id}, en la base de datos`);
+
+        return producto;
+        
+    } catch (error) {
+        throw new ProductosError(`Error al intentar eliminar el producto con el id: ${id}`,500, error);
+    }
 };

@@ -8,4 +8,4 @@ export const response =(res, data, statusCode, message, ...custom) => {
         ...custom
     });
 
-}
+};

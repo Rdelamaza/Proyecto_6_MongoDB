@@ -8,6 +8,7 @@ const productosSchema = new Schema(
         precio: {type: Number,required: true },
         stock: {type: Number,required: true },
         descripcion: {type: String,required: false },
+        isActive: {type: Boolean,default: true },
     },
     { versionkey: false, timestamps: true });
 

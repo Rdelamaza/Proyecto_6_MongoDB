@@ -8,6 +8,7 @@ import usuariosRouter from './routers/usuarios.routes.js';
 import { errorHandler } from './middlewares/errorhandler.js';
 
 
+
 const app = express();
 
 dbConnect();

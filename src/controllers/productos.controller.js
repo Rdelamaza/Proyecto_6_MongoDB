@@ -1,4 +1,5 @@
-import { getProductoByIdService, getAllProductosService,createProductosService } from '../services/productos.service.js';
+import { getProductoByIdService, getAllProductosService,createProductosService,updateProductoByIdService, softDeleteProductoByIdService } from '../services/productos.service.js';
+import { response } from '../utils/templates/response.template.js';
 
 
 // GET ALL PRODUCTOS, CONTROLADOR PARA OBTENER TODOS LOS PRODUCTOS
@@ -6,11 +7,7 @@ export const getAllProductos = async (req, res, next) => {
     try {
         const productos = await getAllProductosService();
 
-        res.status(200).json({
-            message: ' Productos obtenidos correctamente',
-            statusCode:200,
-            data: productos
-        });
+        response(res, productos, 200, 'Productos obtenidos correctamente');
         
     } catch (error) {
         next(error);
@@ -23,11 +20,7 @@ export const getProductoById = async (req, res, next) => {
         const { id } = req.params;
         const productos =  await getProductoByIdService(id);
         
-        res.status(200).json({
-            message: `Producto con el id: ${id}, obtenido correctamente`,
-            statusCode:200,
-            data: productos
-        });
+        response(res, productos, 200, `Producto con el id: ${id} obtenido correctamente`);
 
         
     } catch (error) {
@@ -43,33 +36,45 @@ export const createProducto = async (req, res, next) => {
         const dataProducto = req.body;
         const productos = await createProductosService(dataProducto);
 
-        res.status(201).json({
-            message: 'Producto creado correctamente',
-            statusCode:201,
-            data: productos,
-        });
+        response(res, productos, 201, 'Producto creado correctamente');
         
     } catch (error) {
         next(error);
     };  
 };
 
-
+// CONTROLADOR PARA ACTUALIZAR UN PRODUCTO POR ID
 export const updateProductoById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const dataProducto = req.body;
 
-        const producto = await updateProductoByIdService(id, dataProducto);
-        res.status(201).json({
-            message: `Producto con el id : ${id} actualizado correctamente`,
-            statusCode:201,
-            data: producto,
-        });
+        const [productoAntiguo,productoActualizado] = await updateProductoByIdService(id, dataProducto);
+
+        const custom = {
+            oldData : productoAntiguo,
+        };
+
+        response(res, productoActualizado, 201, `Producto con el id: ${id} actualizado correctamente`, custom);
 
         
     } catch (error) {
         next(error);
         
-    }
+    };
+};
+
+//SOFT DELETE PRODUCTO BY ID, CONTROLADOR PARA ELIMINAR UN PRODUCTO POR ID
+
+export const softDeleteProductoById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const producto = await softDeleteProductoByIdService(id);
+
+        response(res, producto, 200, `Producto con el id: ${id} eliminado correctamente`);
+        
+    } catch (error) {
+        next(error);
+        
+    };
 }
