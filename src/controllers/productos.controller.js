@@ -37,19 +37,39 @@ export const getProductoById = async (req, res, next) => {
 };
 
 
+// CONTROLADOR  PARA CREAR UN PRODUCTO
 export const createProducto = async (req, res, next) => {
     try {
         const dataProducto = req.body;
         const productos = await createProductosService(dataProducto);
 
         res.status(201).json({
-            message: `Producto creado correctamente`,
+            message: 'Producto creado correctamente',
             statusCode:201,
             data: productos,
         });
         
     } catch (error) {
         next(error);
-    }
+    };  
+};
+
+
+export const updateProductoById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const dataProducto = req.body;
+
+        const producto = await updateProductoByIdService(id, dataProducto);
+        res.status(201).json({
+            message: `Producto con el id : ${id} actualizado correctamente`,
+            statusCode:201,
+            data: producto,
+        });
+
+        
+    } catch (error) {
+        next(error);
         
     }
+}
