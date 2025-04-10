@@ -66,6 +66,19 @@ export const updateProductoByIdService = async (id,dataProducto) => {
 
 //HARD DELETE
 
+export const permaDeleteProductoByIdService = async (id) => {
+    try {
+        const producto = await Productos.findByIdAndDelete(id);
+
+        notFoundData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
+
+        return producto;
+        
+    } catch (error) {
+        throw new ProductosError(`Error al intentar eliminar el producto con el id: ${id}`,500, error);
+    }
+};
+
 
 
 
