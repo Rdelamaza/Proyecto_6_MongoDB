@@ -1,5 +1,5 @@
-import { DataBaseError } from "../../errors/TypeError.js"
-import { Productos } from "../../models/Productos.model.js";
+import { DataBaseError } from '../../errors/TypeError.js';
+import { Productos } from '../../models/Productos.model.js';
 
 
 export const updateDocsDb = async () => {

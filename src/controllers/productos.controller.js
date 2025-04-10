@@ -1,4 +1,5 @@
-import { getProductoByIdService, getAllProductosService,createProductosService,updateProductoByIdService, softDeleteProductoByIdService, permaDeleteProductoByIdService } from '../services/productos.service.js';
+import { getProductoByIdService, getAllProductosService,createProductosService,updateProductoByIdService, 
+    softDeleteProductoByIdService, permaDeleteProductoByIdService } from '../services/productos.service.js';
 import { response } from '../utils/templates/response.template.js';
 
 
@@ -80,7 +81,7 @@ export const permaDeleteProductoById = async( req,res, next ) => {
         next(error);
         
     }
-}
+};
 
 //SOFT DELETE PRODUCTO BY ID, CONTROLADOR PARA ELIMINAR UN PRODUCTO POR ID
 
@@ -95,4 +96,4 @@ export const softDeleteProductoById = async (req, res, next) => {
         next(error);
         
     };
-}
+};

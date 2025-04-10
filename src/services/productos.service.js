@@ -2,10 +2,10 @@ import { ProductosError } from '../errors/TypeError.js';
 import { Productos } from '../models/Productos.model.js';
 import { notFoundData } from '../utils/validate.js';
 
-
+// GET DE TODOS LOS PRODUCTOS QUE SE ENCUENTRAN ACTIVOS EN LA BASE DE DATOS. (isActive: true)
 export const getAllProductosService = async () => {
     try {
-        const productos = await Productos.find();
+        const productos = await Productos.find({isActive: true});
 
         notFoundData(productos, 'No se encontraron productos', 'No se encontraron productos en la base de datos');
 
@@ -17,10 +17,10 @@ export const getAllProductosService = async () => {
     };
 };
 
-
+// GET DE PRODUCTO POR ID, QUE SE ENCUENTRA ACTIVO EN LA BASE DE DATOS. (isActive: true)
 export const getProductoByIdService = async (id) => {
     try {
-        const producto = await Productos.findById(id);
+        const producto = await Productos.findById(id,{isActive: true});
 
         notFoundData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
 
@@ -49,9 +49,9 @@ export const createProductosService = async (dataProducto) => {
 export const updateProductoByIdService = async (id,dataProducto) => {
     try {
         //Validar datos
-        const productoAntiguo = await Productos.findOneAndUpdate({_id: id}, dataProducto);
+        const productoAntiguo = await Productos.findOneAndUpdate({_id: id, isActive: true}, dataProducto);
 
-        const productoActualizado = await Productos.findById(id);
+        const productoActualizado = await Productos.findById(id, {isActive: true});
 
         notFoundData(productoAntiguo, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
 
