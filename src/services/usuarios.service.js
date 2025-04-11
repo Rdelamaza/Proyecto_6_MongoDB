@@ -1,8 +1,14 @@
+import jwt from 'jsonwebtoken';
+
 import { UserError } from '../errors/TypeError.js';
 import { Usuarios } from '../models/Usuarios.model.js';
-import { hashPassword } from '../utils/hashPassword.js';
+import { comparePassword, hashPassword } from '../utils/hashPassword.js';
 import { formatUsuarioData } from '../utils/format.Usuario.create.js';
 import { notFoundData } from '../utils/validate.js';
+
+import { envs } from '../config/envs.config.js';
+
+const { secretKey, jwtExpire } = envs.autenticacion;
 
 
 
@@ -58,6 +64,34 @@ export const getAllUsuariosService = async () => {
         return usuarios;
     } catch (error) {
         throw new UserError('Error al obtener los usuarios', error);
+        
+    }
+};
+
+//LOGIN DE USUARIO
+
+export const loginUsuarioService = async ({email, password}) => {
+    try {
+        const usuario = await Usuarios.findOne({email});
+        notFoundData(usuario, 'No se encontró el usuario', 'No se encontró el usuario en la base de datos');
+
+        const passwordMatch = await comparePassword(password, usuario.password);
+
+        if(!usuario || !passwordMatch) {
+            throw new UserError('Usuario o contraseña incorrectos', 401);
+        };
+
+        const token = jwt.sign({
+            id: usuario._id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            isAdmin: usuario
+        },secretKey, {expiresIn: jwtExpire});
+
+        return [usuario, token];
+
+    } catch (error) {
+        throw new UserError('Error al iniciar sesión', error);
         
     }
 };

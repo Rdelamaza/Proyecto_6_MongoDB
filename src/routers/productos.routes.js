@@ -8,6 +8,7 @@ import { getAllProductos,
 import { getAllDeletedProductos, 
     getDeletedProductoById, 
     restoreProductoById } from '../controllers/admin/productos.admin.controller.js';
+import { autenticacionMiddleware } from '../middlewares/usuarios.middleware.js';
 
 const router = Router();
 
@@ -18,9 +19,9 @@ router.put('/:id', updateProductoById);
 router.delete('/:id', softDeleteProductoById);
 
 // RUTAS ADMINISTRADOR
-router.delete('/admin/:id', permaDeleteProductoById);
-router.get('/admin/deleted', getAllDeletedProductos);
-router.get('/admin/deleted/:id', getDeletedProductoById);
-router.patch('/admin/restore/:id', restoreProductoById);
+router.delete('/admin/:id', autenticacionMiddleware, permaDeleteProductoById);
+router.get('/admin/deleted', autenticacionMiddleware,getAllDeletedProductos);
+router.get('/admin/deleted/:id', autenticacionMiddleware, getDeletedProductoById);
+router.patch('/admin/restore/:id', autenticacionMiddleware, restoreProductoById);
 
 export default router;

@@ -3,7 +3,7 @@ import { UserError } from '../errors/TypeError.js';
 import { envs } from '../config/envs.config.js';
 
 
-const { saltRounds } = envs;
+const { saltRounds } = envs.autenticacion;
 
 export const hashPassword = async (password) => {
     try {
