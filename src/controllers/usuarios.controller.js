@@ -1,6 +1,6 @@
 import { response } from '../utils/templates/response.template.js';
 import {registerUsuarioService, 
-        getAllUsuariosService, loginUsuarioService } from '../services/usuarios.service.js';
+        getAllUsuariosService, loginUsuarioService,updateUsuarioByEmailService } from '../services/usuarios.service.js';
 
 
 
@@ -44,5 +44,23 @@ export const login = async (req, res, next) => {
         next(error);
         
     }
-}
+};
+
+export const updateUsuarioByEmail = async (req, res, next) => {
+    try {
+        const { email } = req.params;
+        const dataUsuario = req.body;
+
+        const [usuarioAntiguo, usuarioActualizado] = await updateUsuarioByEmailService(email, dataUsuario);
+
+        const custom = {
+            oldData : usuarioAntiguo,
+        };
+
+        response(res, usuarioActualizado, 201, `Usuario con el email: ${email} actualizado correctamente`, custom);
+    } catch (error) {
+        next(error);
+        
+    }
+};
 

@@ -95,3 +95,21 @@ export const loginUsuarioService = async ({email, password}) => {
         
     }
 };
+
+// SERVICIO PARA ACTUALIZAR UN USUARIO POR EMAIL (PUT)
+
+export const updateUsuarioByEmailService = async (email, dataUsuario) => {
+    try {
+    const usuarioAntiguo =await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario);
+
+    const usuarioActualizado = await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario, {new: true});
+
+    notFoundData(usuarioAntiguo, 'No se encontró el usuario', 'No se encontró el usuario en la base de datos');
+
+    return [usuarioAntiguo, usuarioActualizado];
+    } catch (error) {
+        throw new UserError('Error al actualizar el usuario', error);
+        
+    };
+
+};
