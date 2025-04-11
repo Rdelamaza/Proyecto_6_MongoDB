@@ -19,8 +19,8 @@ const productosSchema = new Schema(
             return ret;
         }
     }, 
-        versionkey: false, 
-        timestamps: true 
+    versionkey: false, 
+    timestamps: true 
     }
 );
 

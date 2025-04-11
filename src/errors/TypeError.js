@@ -31,3 +31,11 @@ export class ProductosError extends CustomError {
     };
 }
 
+// USER ERRORS
+
+export class UserError extends CustomError {
+    constructor(message,statusCode ,details) {
+        super(message || 'Error en el usuario', statusCode , 401, details);
+    };
+
+}

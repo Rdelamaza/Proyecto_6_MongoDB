@@ -43,4 +43,4 @@ export const restoreProductoByIdService = async (id) => {
         throw new ProductosError(`Error al intentar restaurar un producto por ID: ${id}`, error);
         
     }
-}
+};
