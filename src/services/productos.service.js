@@ -20,7 +20,7 @@ export const getAllProductosService = async () => {
 // GET DE PRODUCTO POR ID, QUE SE ENCUENTRA ACTIVO EN LA BASE DE DATOS. (isActive: true)
 export const getProductoByIdService = async (id) => {
     try {
-        const producto = await Productos.findById(id,{isActive: true});
+        const producto = await Productos.findById( {_id: id, isActive: true});
 
         notFoundData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
 
@@ -32,6 +32,7 @@ export const getProductoByIdService = async (id) => {
     }
 };
 
+// CONTROLADOR PARA CREAR UN PRODUCTO
 export const createProductosService = async (dataProducto) => {
     try {
         //validar datos
@@ -46,6 +47,7 @@ export const createProductosService = async (dataProducto) => {
     }
 };
 
+// CONTROLADOR PARA ACTUALIZAR UN PRODUCTO POR ID
 export const updateProductoByIdService = async (id,dataProducto) => {
     try {
         //Validar datos
@@ -64,7 +66,7 @@ export const updateProductoByIdService = async (id,dataProducto) => {
     };
 };
 
-//HARD DELETE
+//CONTROLADOR DE PERMADELETE
 
 export const permaDeleteProductoByIdService = async (id) => {
     try {
@@ -82,7 +84,7 @@ export const permaDeleteProductoByIdService = async (id) => {
 
 
 
-//Soft Delete o Delete logico
+//SCONTROLADOR DE SOFTDELETE
 
 export const softDeleteProductoByIdService = async (id) => {
     try {

@@ -10,6 +10,18 @@ const productosSchema = new Schema(
         descripcion: {type: String,required: false },
         isActive: {type: Boolean,default: true },
     },
-    { versionkey: false, timestamps: true });
+    {   toJSON:{
+        transform: (doc,ret)=>{
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+            delete ret.isActive;
+            return ret;
+        }
+    }, 
+        versionkey: false, 
+        timestamps: true 
+    }
+);
 
-export const Productos = mongoose.model('Productos', productosSchema);
+export const Productos = mongoose.model('productos', productosSchema);

@@ -1,5 +1,7 @@
 import { response } from '../../utils/templates/response.template.js';
-import { getAllDeletedProductosService, getDeletedProductoByIdService } from '../../services/admin/productos.admin.service.js';
+import { getAllDeletedProductosService, 
+        getDeletedProductoByIdService,
+        restoreProductoByIdService } from '../../services/admin/productos.admin.service.js';
 
 export const getAllDeletedProductos = async (req, res, next) => {
     try {
@@ -19,6 +21,19 @@ export const getDeletedProductoById = async (req, res, next) => {
         const productos =  await getDeletedProductoByIdService(id);
         
         response(res, productos, 200, `Producto con el id: ${id} obtenido correctamente`);
+
+        
+    } catch (error) {
+        next(error);
+        
+    };
+};
+
+export const restoreProductoById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const productos =  await restoreProductoByIdService(id);
+        response(res, productos, 200, `Producto con el id: ${id} restaurado correctamente`);
 
         
     } catch (error) {

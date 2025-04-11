@@ -9,7 +9,18 @@ const usuariosSchema = new Schema(
         email: {type: String,required: true },
         password: {type: String,required: true },
     },
-    { versionkey: false, timestamps: true }
+    {   toJSON:{
+        transform: (doc,ret)=>{
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+            delete ret.isActive;
+            return ret;
+        }
+    }, 
+        versionkey: false, 
+        timestamps: true 
+    }
 );
 
-export const Usuarios = mongoose.model('Usuarios', usuariosSchema);
+export const Usuarios = mongoose.model('usuarios', usuariosSchema);

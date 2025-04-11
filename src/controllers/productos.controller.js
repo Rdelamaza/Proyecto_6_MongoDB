@@ -19,10 +19,9 @@ export const getAllProductos = async (req, res, next) => {
 export const getProductoById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const productos =  await getProductoByIdService(id);
+        const producto =  await getProductoByIdService(id);
         
-        response(res, productos, 200, `Producto con el id: ${id} obtenido correctamente`);
-
+        response(res, producto, 200, `Producto con el id: ${id} obtenido correctamente`);
         
     } catch (error) {
         next(error);

@@ -1,6 +1,6 @@
 import { Productos } from '../../models/Productos.model.js';
 import { ProductosError } from '../../errors/TypeError.js';
-import { notFoundActiveData} from '../../utils/validate.js';
+import { notFoundActiveData, notFoundData} from '../../utils/validate.js';
 
 export const getAllDeletedProductosService = async () => {
     try {
@@ -21,7 +21,7 @@ export const getDeletedProductoByIdService = async (id) => {
     try {
         const producto = await Productos.findById(id,{isActive: false});
 
-        notFoundAtiveData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
+        notFoundActiveData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, en la base de datos`);
 
     
         return producto;
@@ -30,3 +30,17 @@ export const getDeletedProductoByIdService = async (id) => {
 
     }
 };
+
+export const restoreProductoByIdService = async (id) => {
+    try {
+        const producto =await Productos.findByIdAndUpdate(id, {isActive: true});
+
+        notFoundData(producto, 'No se encontró el producto', `No se encontró el producto con el id: ${id}, 
+            en la base de datos`);
+            
+        return producto;
+    } catch (error) {
+        throw new ProductosError(`Error al intentar restaurar un producto por ID: ${id}`, error);
+        
+    }
+}
