@@ -15,7 +15,7 @@ const router = Router();
 router.get('/', getAllProductos);
 router.get('/:id',getProductoById);
 router.post('/', createProducto);
-router.put('/:id', updateProductoById);
+router.put('/update/:id', updateProductoById);
 router.delete('/:id', softDeleteProductoById);
 
 // RUTAS ADMINISTRADOR

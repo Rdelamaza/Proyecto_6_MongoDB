@@ -28,9 +28,9 @@ const usuariosSchema = new Schema(
                 delete ret.isAdmin;
                 return ret;
             }
-    }, 
-    versionkey: false, 
-    timestamps: true 
+        }, 
+        versionkey: false, 
+        timestamps: true 
     }
 );
 

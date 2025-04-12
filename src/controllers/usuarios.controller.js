@@ -1,6 +1,6 @@
 import { response } from '../utils/templates/response.template.js';
 import {registerUsuarioService, 
-        getAllUsuariosService, loginUsuarioService,updateUsuarioByEmailService } from '../services/usuarios.service.js';
+    getAllUsuariosService, loginUsuarioService,updateUsuarioByEmailService } from '../services/usuarios.service.js';
 
 
 
@@ -63,4 +63,3 @@ export const updateUsuarioByEmail = async (req, res, next) => {
         
     }
 };
-

@@ -10,8 +10,7 @@ const router = Router();
 
 router.post('/registrar', registrarUsuario);
 router.get('/', autenticacionMiddleware,verifyAdminMiddleware, getAllUsuarios);
-router.put('/:email',updateUsuarioByEmail);
-
+router.put('/:email',login,updateUsuarioByEmail);
 router.post('/login', login);
 
 export default router;

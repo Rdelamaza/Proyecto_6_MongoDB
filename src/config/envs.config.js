@@ -9,9 +9,9 @@ export const envs = {
         uri: process.env.MONGO_URI
     },
     autenticacion :{
-    saltRounds: process.env.SALT_ROUNDS || 10,
-    secretKey: process.env.SECRET_KEY,
-    jwtExpire: process.env.JWT_EXPIRE,
+        saltRounds: process.env.SALT_ROUNDS || 10,
+        secretKey: process.env.SECRET_KEY,
+        jwtExpire: process.env.JWT_EXPIRE,
     }
 
 };

@@ -33,7 +33,7 @@ export const registerUsuarioService = async ({
             fecha_nacimiento, 
             isAdmin);
 
-            console.log(usuarioData);
+        console.log(usuarioData);
             
 
         const usuario = await Usuarios.create(usuarioData);
@@ -100,13 +100,13 @@ export const loginUsuarioService = async ({email, password}) => {
 
 export const updateUsuarioByEmailService = async (email, dataUsuario) => {
     try {
-    const usuarioAntiguo =await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario);
+        const usuarioAntiguo =await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario);
 
-    const usuarioActualizado = await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario, {new: true});
+        const usuarioActualizado = await Usuarios.findOneAndUpdate({email, isActive: true}, dataUsuario, {new: true});
 
-    notFoundData(usuarioAntiguo, 'No se encontró el usuario', 'No se encontró el usuario en la base de datos');
+        notFoundData(usuarioAntiguo, 'No se encontró el usuario', 'No se encontró el usuario en la base de datos');
 
-    return [usuarioAntiguo, usuarioActualizado];
+        return [usuarioAntiguo, usuarioActualizado];
     } catch (error) {
         throw new UserError('Error al actualizar el usuario', error);
         
